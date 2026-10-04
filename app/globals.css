@@ -1,0 +1,149 @@
+@import "tailwindcss";
+
+@theme {
+  /* Brand — taken from the New Gavana logo */
+  --color-navy-50: #eef0f9;
+  --color-navy-100: #d9def2;
+  --color-navy-200: #b3bce4;
+  --color-navy-500: #3a4ea6;
+  --color-navy-600: #2b3e94;
+  --color-navy-700: #24347a;
+  --color-navy-800: #1d2a61;
+  --color-navy-900: #161f47;
+
+  --color-coral-50: #fff4ec;
+  --color-coral-100: #fde3cf;
+  --color-coral-400: #f5944a;
+  --color-coral-500: #f07c22;
+  --color-coral-600: #d9661a;
+  --color-coral-700: #b35112;
+
+  /* Feminine neutrals */
+  --color-cream: #fcf8f5;
+  --color-blush-50: #fdf5f2;
+  --color-blush-100: #f8e8e2;
+  --color-blush-200: #f0d4ca;
+  --color-sand-200: #ece2da;
+  --color-sand-300: #ddd0c5;
+  --color-ink: #1b1d2e;
+  --color-muted: #6b6878;
+
+  /* WhatsApp — darkened from #25D366 so white text passes WCAG AA */
+  --color-wa-500: #138a4b;
+  --color-wa-600: #0f7540;
+  --color-wa-50: #e9f7ef;
+
+  --font-sans: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-playfair), ui-serif, Georgia, serif;
+
+  --animate-fade-in: fade-in 0.4s ease-out both;
+  --animate-slide-in-right: slide-in-right 0.3s cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-slide-in-left: slide-in-left 0.3s cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-toast: toast 0.35s cubic-bezier(0.22, 1, 0.36, 1) both;
+
+  @keyframes fade-in {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: none; }
+  }
+  @keyframes slide-in-right {
+    from { transform: translateX(100%); }
+    to { transform: none; }
+  }
+  @keyframes slide-in-left {
+    from { transform: translateX(-100%); }
+    to { transform: none; }
+  }
+  @keyframes toast {
+    from { opacity: 0; transform: translateY(12px) scale(0.98); }
+    to { opacity: 1; transform: none; }
+  }
+}
+
+@layer base {
+  html {
+    -webkit-tap-highlight-color: transparent;
+    scroll-behavior: smooth;
+  }
+  body {
+    background: var(--color-cream);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    text-rendering: optimizeLegibility;
+  }
+  ::selection {
+    background: var(--color-coral-100);
+    color: var(--color-navy-900);
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-coral-500);
+    outline-offset: 2px;
+  }
+  input,
+  select,
+  textarea {
+    font: inherit;
+  }
+}
+
+@utility container-page {
+  width: 100%;
+  max-width: 80rem;
+  margin-inline: auto;
+  padding-inline: 1rem;
+  @media (width >= 40rem) {
+    padding-inline: 1.5rem;
+  }
+  @media (width >= 64rem) {
+    padding-inline: 2rem;
+  }
+}
+
+@utility no-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@layer components {
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-semibold transition-colors duration-200 disabled:cursor-not-allowed disabled:opacity-50;
+  }
+  .btn-sm {
+    @apply px-3.5 py-2 text-xs;
+  }
+  .btn-primary {
+    @apply bg-navy-800 text-white hover:bg-navy-900;
+  }
+  .btn-accent {
+    @apply bg-coral-500 text-white hover:bg-coral-600;
+  }
+  .btn-outline {
+    @apply border border-navy-800/20 bg-white text-navy-900 hover:border-navy-800 hover:bg-navy-50;
+  }
+  .btn-ghost {
+    @apply text-navy-900 hover:bg-navy-50;
+  }
+  .btn-danger {
+    @apply bg-red-600 text-white hover:bg-red-700;
+  }
+  .btn-whatsapp {
+    @apply bg-wa-500 text-white shadow-sm shadow-wa-500/20 hover:bg-wa-600;
+  }
+
+  .field-label {
+    @apply mb-1.5 block text-sm font-medium text-navy-900;
+  }
+  .field {
+    @apply block w-full rounded-xl border border-sand-300 bg-white px-3.5 py-2.5 text-[15px] text-ink placeholder:text-muted/70 transition focus:border-navy-600 focus:ring-2 focus:ring-navy-600/15 focus:outline-none disabled:bg-sand-200/40;
+  }
+  .field-error {
+    @apply mt-1 text-xs font-medium text-red-600;
+  }
+  .card {
+    @apply rounded-2xl border border-sand-200 bg-white;
+  }
+  .eyebrow {
+    @apply text-[11px] font-semibold tracking-[0.22em] text-coral-600 uppercase;
+  }
+}
