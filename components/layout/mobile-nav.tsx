@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import { ChevronDownIcon, CloseIcon, MenuIcon } from "@/components/icons";
 import { MAIN_NAV } from "@/components/layout/nav-links";
 
@@ -43,7 +44,10 @@ export function MobileNav({
         <MenuIcon size={24} />
       </button>
 
-      {open && (
+      {/* Portalled to <body>: the header's backdrop-blur would otherwise become the
+          containing block for this fixed overlay and clip it to the header's height. */}
+      {open &&
+        createPortal(
         <div className="fixed inset-0 z-[60] lg:hidden" role="dialog" aria-modal="true" aria-label="Menu">
           <button
             type="button"
@@ -124,8 +128,9 @@ export function MobileNav({
               Orders and payment are handled personally on WhatsApp. No card details needed.
             </p>
           </nav>
-        </div>
-      )}
+        </div>,
+          document.body,
+        )}
     </>
   );
 }
